@@ -6,16 +6,31 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2
 {
+    enum Operation:byte
+    {
+        add=1,
+        subtract,
+        multiply,
+        devide,
+        percentage,
+        root,
+        result,
+        exit
+    }
     class Program
     {
+        static int si = 0;
+        static (double, double) number;
+        static double result;
+        static double[] resultmas = new double[5];
         //number input validation method
-        static decimal check()
+        static double Check()
         {
-            decimal number;
+            double number;
             while (true)
             {
                 var input = Console.ReadLine();
-                var condition = decimal.TryParse(input, out number);
+                var condition = double.TryParse(input, out number);
                 if (condition)
 
                 {
@@ -28,58 +43,73 @@ namespace ConsoleApp2
 
             }
         }
+        // adding the result to the array
+        static void Result(double result)
+        {
+            resultmas[si] = result;
+            si = si + 1;
+
+            if (si > 4)
+            {
+                si = 0;
+            }
+
+        }
+        static void ActionMenu()
+        {
+            // action menu
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("=====Homework one======\n====by Vadim Bezhkov===\n======calculator=======");
+            Console.WriteLine("+ - enter key 1");
+            Console.WriteLine("- - enter key 2");
+            Console.WriteLine("* - enter key 3");
+            Console.WriteLine("/ - enter key 4");
+            Console.WriteLine("% - enter key 5");
+            Console.WriteLine("√ - enter key 6");
+            Console.WriteLine("5 results - enter key 7");
+            Console.WriteLine("exit to program - enter key 8");
+            Console.Write("enter key:");
+        }
+        static void PrintResult()
+        {
+            foreach (var item in resultmas)
+            {
+                Console.WriteLine($"result:{item}");
+            }
+        }
         static void Main(string[] args)
         {
-            //array cell variable
-            int si = 0;
-            decimal[] result = new decimal[5];
-            decimal[] signs = new decimal[100];
-
             while (true)
             {
                 Console.Clear();
-
-                // action menu
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("=====Homework one======\n====by Vadim Bezhkov===\n======calculator=======");
-                Console.WriteLine("+ - enter key 1");
-                Console.WriteLine("- - enter key 2");
-                Console.WriteLine("* - enter key 3");
-                Console.WriteLine("/ - enter key 4");
-                Console.WriteLine("% - enter key 5");
-                Console.WriteLine("√ - enter key 6");
-                Console.WriteLine("5 latest results of operations - enter key 7");
-                Console.WriteLine("exit to program - enter key 8");
-                Console.Write("enter key:");
+                ActionMenu();
                 
-                string chose = Console.ReadLine();
+                string chose = Console.ReadLine(); 
+                byte choseEnum;
                 Console.Clear();
 
-                // vybor deystviya
-                switch (chose)
+                bool check = byte.TryParse(chose, out choseEnum);
+                Operation op=(Operation)choseEnum;
+                // choose action
+                switch (op)
                 {
                     //addition operation
-                    case "1":
+                    case Operation.add:
                         {
                             Console.ResetColor();
                             Console.WriteLine("You CHOSE (1)");
                             Console.WriteLine("addition operation");
+
                             Console.WriteLine("Enter number A");
-                            decimal number1 = check();
+                            number.Item1 = Check();
 
                             Console.WriteLine("Enter number B");
-                            decimal number2 = check();
-                            result[si] = number1 + number2;
+                            number.Item2 = Check();
 
-                            // adding the result to the array
-                            si = si + 1;
+                            result = number.Item1 + number.Item2;
+                            Result(result);
 
-                            if (si>4)
-                            {
-                                si = 0;
-                            }
-
-                            Console.WriteLine($"result: {number1} + {number2} = {number1 + number2}");
+                            Console.WriteLine($"result: {result}");
                             Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
                             String repeat = Console.ReadLine();
 
@@ -93,7 +123,7 @@ namespace ConsoleApp2
                                         si = 0;
                                     }
 
-                                    goto case "1";
+                                    goto case Operation.add;
                                 }
 
                                 break;
@@ -102,25 +132,22 @@ namespace ConsoleApp2
 
                         break;
                     //subtracting numbers
-                    case "2":
+                    case Operation.subtract:
                         {
                             Console.ResetColor();
                             Console.WriteLine("You CHOSE (2)");
                             Console.WriteLine("subtracting numbers");
+
                             Console.WriteLine("Enter number A");
-                            decimal number1 = check();
+                            number.Item1 = Check();
 
                             Console.WriteLine("Enter number B");
-                            decimal number2 = check();
-                            result[si] = number1 - number2;
-                            si = si + 1;
+                            number.Item2 = Check();
 
-                            if (si > 4)
-                            {
-                                si = 0;
-                            }
+                            result = number.Item1 - number.Item2;
+                            Result(result);
 
-                            Console.WriteLine($"result: {number1} - {number2} = {number1 - number2}");
+                            Console.WriteLine($"result: {result}");
                             Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
                             String repeat = Console.ReadLine();
 
@@ -134,7 +161,7 @@ namespace ConsoleApp2
                                         si = 0;
                                     }
 
-                                    goto case "2";
+                                    goto case Operation.subtract;
                                 }
                                 else
                                     break;
@@ -143,25 +170,22 @@ namespace ConsoleApp2
 
                         break;
                     //multiplication of numbers
-                    case "3":
+                    case Operation.multiply:
                         {
                             Console.ResetColor();
                             Console.WriteLine("You CHOSE (3)");
                             Console.WriteLine("multiplication of numbers");
+
                             Console.WriteLine("Enter number A");
-                            decimal number1 = check();
+                            number.Item1 = Check();
 
                             Console.WriteLine("Enter number B");
-                            decimal number2 = check();
-                            result[si] = number1 * number2;
-                            si = si + 1;
-                           
-                            if (si > 4)
-                            {
-                                si = 0;
-                            }
+                            number.Item2 = Check();
 
-                            Console.WriteLine($"result: {number1} * {number2} = {number1 * number2}");
+                            result = number.Item1 * number.Item2;
+                            Result(result);
+
+                            Console.WriteLine($"result: {result}");
                             Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
                             String repeat = Console.ReadLine();
 
@@ -175,7 +199,7 @@ namespace ConsoleApp2
                                         si = 0;
                                     }
 
-                                    goto case "3";
+                                    goto case Operation.multiply;
                                 }
                                 else
                                     break;
@@ -184,25 +208,22 @@ namespace ConsoleApp2
                         
                         break;
                     //quotient numbers
-                    case "4":
+                    case Operation.devide:
                         {
                             Console.ResetColor();
                             Console.WriteLine("You CHOSE (4)");
                             Console.WriteLine("quotient numbers");
+
                             Console.WriteLine("Enter number A");
-                            decimal number1 = check();
+                            number.Item1 = Check();
 
                             Console.WriteLine("Enter number B");
-                            decimal number2 = check();
-                            result[si] = number1 / number2;
-                            si = si + 1;
+                            number.Item2 = Check();
 
-                            if (si > 4)
-                            {
-                                si = 0;
-                            }
+                            result = number.Item1 / number.Item2;
+                            Result(result);
 
-                            Console.WriteLine($"result: {number1} / {number2} = {number1 / number2}");
+                            Console.WriteLine($"result: {result}");
                             Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
                             String repeat = Console.ReadLine();
 
@@ -216,7 +237,7 @@ namespace ConsoleApp2
                                         si = 0;
                                     }
 
-                                    goto case "4";
+                                    goto case Operation.devide;
                                 }
                                 else
                                     break;
@@ -225,25 +246,22 @@ namespace ConsoleApp2
 
                         break;
                     //percentage of the number
-                    case "5":
+                    case Operation.percentage:
                         {
                             Console.ResetColor();
                             Console.WriteLine("You CHOSE (5)");
                             Console.WriteLine("procent");
+
                             Console.WriteLine("Enter number");
-                            decimal number1 = check();
+                            number.Item1 = Check();
 
                             Console.WriteLine("enter any procent");
-                            decimal number2 = check();
-                            result[si] = (number1 / number2)/100;
-                            si = si + 1;
-                          
-                            if (si > 4)
-                            {
-                                si = 0;
-                            }
+                            number.Item2 = Check();
 
-                            Console.WriteLine($"result:  {(number1 * number2) / 100}");
+                            result = (number.Item1 * number.Item2)/100;
+                            Result(result);
+
+                            Console.WriteLine($"result:  {result}");
                             Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
                             String repeat = Console.ReadLine();
 
@@ -257,7 +275,7 @@ namespace ConsoleApp2
                                         si = 0;
                                     }
 
-                                    goto case "5";
+                                    goto case Operation.percentage;
                                 }
                                 else
                                     break;
@@ -266,33 +284,19 @@ namespace ConsoleApp2
 
                         break;
                     //root of number
-                    case "6":
+                    case Operation.root:
                         {
                             Console.ResetColor();
                             Console.WriteLine("You CHOSE (5)");
                             Console.WriteLine("√");
+
                             Console.WriteLine("Enter number ");
-                            double number1;
+                            number.Item1 = Check();
 
-                            while (true)
-                            {
-                                if (double.TryParse(Console.ReadLine(), out number1))
-                                {
-                                    break;
-                                }
-                                else Console.WriteLine("Error    :enter number");
-                            }
+                            result = Math.Sqrt(number.Item1);
+                            Console.WriteLine($"Root from number = {result}");
 
-                            double number2 = Math.Sqrt(number1);
-                            Console.WriteLine($"Root from number = {number2}");
-                            decimal number3 = Convert.ToDecimal(number2);
-                            result[si] = number3;
-                            si = si + 1;
-
-                            if (si > 4)
-                            {
-                                si = 0;
-                            }
+                            Result(result);
 
                             Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
                             String repeat = Console.ReadLine();
@@ -308,7 +312,7 @@ namespace ConsoleApp2
                                         si = 0;
                                     }
 
-                                    goto case "6";
+                                    goto case Operation.root;
                                 }
                                 else
                                     break;
@@ -317,15 +321,15 @@ namespace ConsoleApp2
 
                         break;
                     //last 5 operations on numbers
-                    case "7":
+                    case Operation.result:
                         {
-                            Console.WriteLine($"{result[0]}, {result[1]}, {result[2]}, {result[3]}, {result[4]}");
+                            PrintResult();
                             Console.ReadKey();
                         }
 
                         break;
                     //exit to programm
-                    case "8":
+                    case Operation.exit:
                         {
                             Console.WriteLine("Exit programm y -yes n-no?");
                             String exit = Console.ReadLine();
@@ -343,7 +347,7 @@ namespace ConsoleApp2
                             else
                             {
                                 Console.Clear();
-                                goto case "8";
+                                goto case Operation.exit;
                             }
                         }
                         
