@@ -55,6 +55,13 @@ namespace ConsoleApp2
             }
 
         }
+        static void CheckForFilling()
+        {
+            if (si > 4)
+            {
+                si = 0;
+            }
+        }
         static void ActionMenu()
         {
             // action menu
@@ -79,6 +86,9 @@ namespace ConsoleApp2
         }
         static void Main(string[] args)
         {
+            string info = "Do you want to repeat enter? yes \n" +
+            "to exit press any button and press enter";
+
             while (true)
             {
                 Console.Clear();
@@ -97,7 +107,7 @@ namespace ConsoleApp2
                     case Operation.add:
                         {
                             Console.ResetColor();
-                            Console.WriteLine("You CHOSE (1)");
+                            Console.WriteLine($"You CHOSE ({Operation.add})");
                             Console.WriteLine("addition operation");
 
                             Console.WriteLine("Enter number A");
@@ -110,19 +120,14 @@ namespace ConsoleApp2
                             Result(result);
 
                             Console.WriteLine($"result: {result}");
-                            Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
+                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
                             {
                                 if (repeat == "yes")
                                 {
-
-                                    if (si > 4)
-                                    {
-                                        si = 0;
-                                    }
-
+                                    CheckForFilling();
                                     goto case Operation.add;
                                 }
 
@@ -135,7 +140,7 @@ namespace ConsoleApp2
                     case Operation.subtract:
                         {
                             Console.ResetColor();
-                            Console.WriteLine("You CHOSE (2)");
+                            Console.WriteLine($"You CHOSE ({Operation.subtract})");
                             Console.WriteLine("subtracting numbers");
 
                             Console.WriteLine("Enter number A");
@@ -148,19 +153,14 @@ namespace ConsoleApp2
                             Result(result);
 
                             Console.WriteLine($"result: {result}");
-                            Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
+                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
                             {
                                 if (repeat == "yes")
                                 {
-
-                                    if (si > 4)
-                                    {
-                                        si = 0;
-                                    }
-
+                                    CheckForFilling();
                                     goto case Operation.subtract;
                                 }
                                 else
@@ -173,7 +173,7 @@ namespace ConsoleApp2
                     case Operation.multiply:
                         {
                             Console.ResetColor();
-                            Console.WriteLine("You CHOSE (3)");
+                            Console.WriteLine($"You CHOSE ({Operation.multiply})");
                             Console.WriteLine("multiplication of numbers");
 
                             Console.WriteLine("Enter number A");
@@ -186,19 +186,14 @@ namespace ConsoleApp2
                             Result(result);
 
                             Console.WriteLine($"result: {result}");
-                            Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
+                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
                             {
                                 if (repeat == "yes")
                                 {
-
-                                    if (si > 4)
-                                    {
-                                        si = 0;
-                                    }
-
+                                    CheckForFilling();
                                     goto case Operation.multiply;
                                 }
                                 else
@@ -211,7 +206,7 @@ namespace ConsoleApp2
                     case Operation.devide:
                         {
                             Console.ResetColor();
-                            Console.WriteLine("You CHOSE (4)");
+                            Console.WriteLine($"You CHOSE ({Operation.devide})");
                             Console.WriteLine("quotient numbers");
 
                             Console.WriteLine("Enter number A");
@@ -224,19 +219,14 @@ namespace ConsoleApp2
                             Result(result);
 
                             Console.WriteLine($"result: {result}");
-                            Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
+                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
                             {
                                 if (repeat == "yes")
                                 {
-
-                                    if (si > 4)
-                                    {
-                                        si = 0;
-                                    }
-
+                                    CheckForFilling();
                                     goto case Operation.devide;
                                 }
                                 else
@@ -249,7 +239,7 @@ namespace ConsoleApp2
                     case Operation.percentage:
                         {
                             Console.ResetColor();
-                            Console.WriteLine("You CHOSE (5)");
+                            Console.WriteLine($"You CHOSE ({Operation.percentage})");
                             Console.WriteLine("procent");
 
                             Console.WriteLine("Enter number");
@@ -262,19 +252,14 @@ namespace ConsoleApp2
                             Result(result);
 
                             Console.WriteLine($"result:  {result}");
-                            Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
+                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
                             {
                                 if (repeat == "yes")
                                 {
-
-                                    if (si > 4)
-                                    {
-                                        si = 0;
-                                    }
-
+                                    CheckForFilling();
                                     goto case Operation.percentage;
                                 }
                                 else
@@ -287,7 +272,7 @@ namespace ConsoleApp2
                     case Operation.root:
                         {
                             Console.ResetColor();
-                            Console.WriteLine("You CHOSE (5)");
+                            Console.WriteLine($"You CHOSE ({Operation.root})");
                             Console.WriteLine("√");
 
                             Console.WriteLine("Enter number ");
@@ -298,7 +283,7 @@ namespace ConsoleApp2
 
                             Result(result);
 
-                            Console.WriteLine("Do you want to repeat enter? yes \nto exit press any button and press enter");
+                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
@@ -306,12 +291,7 @@ namespace ConsoleApp2
 
                                 if (repeat == "yes")
                                 {
-
-                                    if (si > 4)
-                                    {
-                                        si = 0;
-                                    }
-
+                                    CheckForFilling();
                                     goto case Operation.root;
                                 }
                                 else
@@ -355,7 +335,8 @@ namespace ConsoleApp2
                     //if no menu button is selected
                     default:
                         {
-                            Console.WriteLine("Mistake. Make your choice \npress any button to continue");
+                            Console.WriteLine("Mistake. Make your choice \n" +
+                                "press any button to continue");
                             Console.ReadKey();
                         }
 
