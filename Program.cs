@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2
 {
-    enum Operation:byte
+    enum Operation : byte
     {
-        add=1,
+        add = 1,
         subtract,
         multiply,
         devide,
@@ -48,13 +48,9 @@ namespace ConsoleApp2
         // adding the result to the array
         static void Result(double result)
         {
-            resultmas[si] = result;
-            si = si + 1;
-
-            if (si > 4)
-            {
-                si = 0;
-            }
+            resultmas[si++] = result;
+            //si = si + 1;
+            CheckForFilling();
 
         }
         //if more than five results
@@ -65,9 +61,11 @@ namespace ConsoleApp2
                 si = 0;
             }
         }
+
         // action menu
         static void ActionMenu()
-        { 
+        {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("=====Homework one======\n====by Vadim Bezhkov===\n======calculator=======");
             Console.WriteLine("+ - enter key 1");
@@ -103,136 +101,144 @@ namespace ConsoleApp2
             Console.WriteLine($"result: {result}");
             Console.WriteLine(info);
         }
+        //add operation
+        static double Add(double number1, double number2)
+        {
+            result = number1 + number2;
+            return result;
+        }
+        //substract operation
+        static double Subtract(double number1, double number2)
+        {
+            result = number1 - number2;
+            return result;
+        }
+        //multiply operation
+        static double Multiply(double number1, double number2)
+        {
+            result = number1 * number2;
+            return result;
+        }
+        //devide operation
+        static double Devide(double number1, double number2)
+        {
+            result = number1 / number2;
+            return result;
+        }
+        //percentage operation
+        static double Percentage(double number1, double number2)
+        {
+            result = (number1 * number2) / 100;
+            return result;
+        }
+        //root operation
+        static double Root(double number1)
+        {
+            result = Math.Sqrt(number1);
+            return result;
+        }
+        //text output operation
+        static void CustomWriteLine(string text)
+        {
+            Console.Clear();
+            Console.ResetColor();
+            Console.WriteLine(text);
+        }
         static void Main(string[] args)
         {
             while (true)
             {
-                Console.Clear();
                 ActionMenu();
-                
-                string chose = Console.ReadLine(); 
-                byte choseEnum;
-                Console.Clear();
-
-                bool check = byte.TryParse(chose, out choseEnum);
-                Operation op=(Operation)choseEnum;
+                Operation op;
+                Enum.TryParse(Console.ReadLine(), out op);
                 // choose action
                 switch (op)
                 {
                     //addition operation
                     case Operation.add:
                         {
-                            Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.add})");
-                            Console.WriteLine("addition operation");
-
-                            Enternumbers();
-                            result = number.Item1 + number.Item2;
-                            Result(result);
-                            PrintResultInfo();
-                           
-                            String repeat = Console.ReadLine();
-
-                            while (true)
+                            do
                             {
-                                if (repeat == "yes")
-                                {
-                                    CheckForFilling();
-                                    goto case Operation.add;
-                                }
+                                CustomWriteLine($"You CHOSE ({Operation.add})\naddition operation");
+                                Enternumbers();
+                                Add(number.Item1, number.Item2);
+                                Result(result);
+                                PrintResultInfo();
 
-                                break;
-                            }
+                            } while (Console.ReadLine() == "yes");
+                            //Console.ResetColor();
+                            //Console.WriteLine($"You CHOSE ({Operation.add})");
+                            //Console.WriteLine("addition operation");
+
+                            //Enternumbers();
+                            //Add(number.Item1,number.Item2);
+                            //Result(result);
+                            //PrintResultInfo();
+
+                            //String repeat = Console.ReadLine();
+
+                            //while (true)
+                            //{
+                            //    if (repeat == "yes")
+                            //    {
+                            //        CheckForFilling();
+                            //        goto case Operation.add;
+                            //    }
+
+                            //    break;
+                            //}
                         }
 
                         break;
                     //subtracting numbers
                     case Operation.subtract:
                         {
-                            Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.subtract})");
-                            Console.WriteLine("subtracting numbers");
-
-                            Enternumbers();
-                            result = number.Item1 - number.Item2;
-                            Result(result);
-                            PrintResultInfo();
-
-                            String repeat = Console.ReadLine();
-
-                            while (true)
+                            do
                             {
-                                if (repeat == "yes")
-                                {
-                                    CheckForFilling();
-                                    goto case Operation.subtract;
-                                }
-                                else
-                                    break;
-                            }  
+                                CustomWriteLine($"You CHOSE ({Operation.subtract})\nsubtracting numbers");
+                                Enternumbers();
+                                Subtract(number.Item1, number.Item2);
+                                Result(result);
+                                PrintResultInfo();
+                            }
+                            while (Console.ReadLine() == "yes");
                         }
 
                         break;
                     //multiplication of numbers
                     case Operation.multiply:
                         {
-                            Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.multiply})");
-                            Console.WriteLine("multiplication of numbers");
-
-                            Enternumbers();
-                            result = number.Item1 * number.Item2;
-                            Result(result);
-                            PrintResultInfo();
-
-                            String repeat = Console.ReadLine();
-
-                            while (true)
+                            do
                             {
-                                if (repeat == "yes")
-                                {
-                                    CheckForFilling();
-                                    goto case Operation.multiply;
-                                }
-                                else
-                                    break;
+                                CustomWriteLine($"You CHOSE ({Operation.multiply})\nmultiplication of numbers");
+                                Enternumbers();
+                                Multiply(number.Item1, number.Item2);
+                                Result(result);
+                                PrintResultInfo();
                             }
-                        } 
-                        
+                            while (Console.ReadLine() == "yes");
+                        }
+
                         break;
                     //quotient numbers
                     case Operation.devide:
                         {
-                            Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.devide})");
-                            Console.WriteLine("quotient numbers");
-
-                            Enternumbers();
-                            result = number.Item1 / number.Item2;
-                            Result(result);
-                            PrintResultInfo();
-
-                            String repeat = Console.ReadLine();
-
-                            while (true)
+                            do
                             {
-                                if (repeat == "yes")
-                                {
-                                    CheckForFilling();
-                                    goto case Operation.devide;
-                                }
-                                else
-                                    break;
+                                CustomWriteLine($"You CHOSE ({Operation.devide})\nquotient numbers");
+                                Enternumbers();
+                                Devide(number.Item1, number.Item2);
+                                Result(result);
+                                PrintResultInfo();
                             }
+                            while (Console.ReadLine() == "yes");
                         }
 
                         break;
                     //percentage of the number
                     case Operation.percentage:
                         {
-                            Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.percentage})");
-                            Console.WriteLine("procent");
+                            CustomWriteLine($"You CHOSE ({Operation.percentage})\nprocent");
 
                             Console.WriteLine("Enter number");
                             number.Item1 = Check();
@@ -240,22 +246,13 @@ namespace ConsoleApp2
                             Console.WriteLine("enter any procent");
                             number.Item2 = Check();
 
-                            result = (number.Item1 * number.Item2)/100;
-                            Result(result);
-                            PrintResultInfo();
-
-                            String repeat = Console.ReadLine();
-
-                            while (true)
+                            do
                             {
-                                if (repeat == "yes")
-                                {
-                                    CheckForFilling();
-                                    goto case Operation.percentage;
-                                }
-                                else
-                                    break;
+                                Percentage(number.Item1, number.Item2);
+                                Result(result);
+                                PrintResultInfo();
                             }
+                            while (Console.ReadLine() == "yes");
                         }
 
                         break;
@@ -263,29 +260,17 @@ namespace ConsoleApp2
                     case Operation.root:
                         {
                             Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.root})");
-                            Console.WriteLine("√");
-
+                            Console.WriteLine($"You CHOSE ({Operation.root})\n√");
                             Console.WriteLine("Enter number ");
                             number.Item1 = Check();
 
-                            result = Math.Sqrt(number.Item1);
-                            Result(result);
-                            PrintResultInfo();
-
-                            String repeat = Console.ReadLine();
-
-                            while (true)
+                            do
                             {
-
-                                if (repeat == "yes")
-                                {
-                                    CheckForFilling();
-                                    goto case Operation.root;
-                                }
-                                else
-                                    break;
+                                Root(number.Item1);
+                                Result(result);
+                                PrintResultInfo();
                             }
+                            while (Console.ReadLine() == "yes");
                         }
 
                         break;
@@ -300,26 +285,19 @@ namespace ConsoleApp2
                     //exit to programm
                     case Operation.exit:
                         {
-                            Console.WriteLine("Exit programm y -yes n-no?");
-                            String exit = Console.ReadLine();
-
-                            if (exit == "n")
+                            String exit;
+                            do
                             {
-                                break;
-                            }
+                                Console.WriteLine("Exit programm y -yes n-no?");
+                                exit = Console.ReadLine();
 
-                            else if (exit == "y")
-                            {
-                                Environment.Exit(0);
-                            }
+                                if (exit == "y")
+                                {
+                                    Environment.Exit(0);
+                                }
 
-                            else
-                            {
-                                Console.Clear();
-                                goto case Operation.exit;
-                            }
+                            } while (exit != "n");
                         }
-                        
                         break;
                     //if no menu button is selected
                     default:
