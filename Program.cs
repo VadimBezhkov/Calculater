@@ -155,6 +155,27 @@ namespace ConsoleApp2
                 switch (op)
                 {
                     //addition operation
+                    //Console.ResetColor();
+                    //Console.WriteLine($"You CHOSE ({Operation.add})");
+                    //Console.WriteLine("addition operation");
+
+                    //Enternumbers();
+                    //Add(number.Item1,number.Item2);
+                    //Result(result);
+                    //PrintResultInfo();
+
+                    //String repeat = Console.ReadLine();
+
+                    //while (true)
+                    //{
+                    //    if (repeat == "yes")
+                    //    {
+                    //        CheckForFilling();
+                    //        goto case Operation.add;
+                    //    }
+
+                    //    break;
+                    //}
                     case Operation.add:
                         {
                             do
@@ -166,27 +187,6 @@ namespace ConsoleApp2
                                 PrintResultInfo();
 
                             } while (Console.ReadLine() == "yes");
-                            //Console.ResetColor();
-                            //Console.WriteLine($"You CHOSE ({Operation.add})");
-                            //Console.WriteLine("addition operation");
-
-                            //Enternumbers();
-                            //Add(number.Item1,number.Item2);
-                            //Result(result);
-                            //PrintResultInfo();
-
-                            //String repeat = Console.ReadLine();
-
-                            //while (true)
-                            //{
-                            //    if (repeat == "yes")
-                            //    {
-                            //        CheckForFilling();
-                            //        goto case Operation.add;
-                            //    }
-
-                            //    break;
-                            //}
                         }
 
                         break;
@@ -294,6 +294,7 @@ namespace ConsoleApp2
 
                             } while (exit != "n");
                         }
+
                         break;
                     //if no menu button is selected
                     default:
