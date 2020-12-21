@@ -23,6 +23,8 @@ namespace ConsoleApp2
         static (double, double) number;
         static double result;
         static double[] resultmas = new double[5];
+        static string info = "Do you want to repeat enter? yes \n" +
+            "to exit press any button and press enter";
         //number input validation method
         static double Check()
         {
@@ -55,6 +57,7 @@ namespace ConsoleApp2
             }
 
         }
+        //if more than five results
         static void CheckForFilling()
         {
             if (si > 4)
@@ -62,9 +65,9 @@ namespace ConsoleApp2
                 si = 0;
             }
         }
+        // action menu
         static void ActionMenu()
-        {
-            // action menu
+        { 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("=====Homework one======\n====by Vadim Bezhkov===\n======calculator=======");
             Console.WriteLine("+ - enter key 1");
@@ -77,6 +80,7 @@ namespace ConsoleApp2
             Console.WriteLine("exit to program - enter key 8");
             Console.Write("enter key:");
         }
+        //displaying the last five results
         static void PrintResult()
         {
             foreach (var item in resultmas)
@@ -84,11 +88,23 @@ namespace ConsoleApp2
                 Console.WriteLine($"result:{item}");
             }
         }
+        //input numbers
+        static void Enternumbers()
+        {
+            Console.WriteLine("Enter number A");
+            number.Item1 = Check();
+
+            Console.WriteLine("Enter number B");
+            number.Item2 = Check();
+        }
+        //user result output
+        static void PrintResultInfo()
+        {
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine(info);
+        }
         static void Main(string[] args)
         {
-            string info = "Do you want to repeat enter? yes \n" +
-            "to exit press any button and press enter";
-
             while (true)
             {
                 Console.Clear();
@@ -110,17 +126,11 @@ namespace ConsoleApp2
                             Console.WriteLine($"You CHOSE ({Operation.add})");
                             Console.WriteLine("addition operation");
 
-                            Console.WriteLine("Enter number A");
-                            number.Item1 = Check();
-
-                            Console.WriteLine("Enter number B");
-                            number.Item2 = Check();
-
+                            Enternumbers();
                             result = number.Item1 + number.Item2;
                             Result(result);
-
-                            Console.WriteLine($"result: {result}");
-                            Console.WriteLine(info);
+                            PrintResultInfo();
+                           
                             String repeat = Console.ReadLine();
 
                             while (true)
@@ -143,17 +153,11 @@ namespace ConsoleApp2
                             Console.WriteLine($"You CHOSE ({Operation.subtract})");
                             Console.WriteLine("subtracting numbers");
 
-                            Console.WriteLine("Enter number A");
-                            number.Item1 = Check();
-
-                            Console.WriteLine("Enter number B");
-                            number.Item2 = Check();
-
+                            Enternumbers();
                             result = number.Item1 - number.Item2;
                             Result(result);
+                            PrintResultInfo();
 
-                            Console.WriteLine($"result: {result}");
-                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
@@ -176,17 +180,11 @@ namespace ConsoleApp2
                             Console.WriteLine($"You CHOSE ({Operation.multiply})");
                             Console.WriteLine("multiplication of numbers");
 
-                            Console.WriteLine("Enter number A");
-                            number.Item1 = Check();
-
-                            Console.WriteLine("Enter number B");
-                            number.Item2 = Check();
-
+                            Enternumbers();
                             result = number.Item1 * number.Item2;
                             Result(result);
+                            PrintResultInfo();
 
-                            Console.WriteLine($"result: {result}");
-                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
@@ -209,17 +207,11 @@ namespace ConsoleApp2
                             Console.WriteLine($"You CHOSE ({Operation.devide})");
                             Console.WriteLine("quotient numbers");
 
-                            Console.WriteLine("Enter number A");
-                            number.Item1 = Check();
-
-                            Console.WriteLine("Enter number B");
-                            number.Item2 = Check();
-
+                            Enternumbers();
                             result = number.Item1 / number.Item2;
                             Result(result);
+                            PrintResultInfo();
 
-                            Console.WriteLine($"result: {result}");
-                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
@@ -250,9 +242,8 @@ namespace ConsoleApp2
 
                             result = (number.Item1 * number.Item2)/100;
                             Result(result);
+                            PrintResultInfo();
 
-                            Console.WriteLine($"result:  {result}");
-                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
@@ -279,11 +270,9 @@ namespace ConsoleApp2
                             number.Item1 = Check();
 
                             result = Math.Sqrt(number.Item1);
-                            Console.WriteLine($"Root from number = {result}");
-
                             Result(result);
+                            PrintResultInfo();
 
-                            Console.WriteLine(info);
                             String repeat = Console.ReadLine();
 
                             while (true)
