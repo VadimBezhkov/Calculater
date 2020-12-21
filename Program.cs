@@ -48,8 +48,8 @@ namespace ConsoleApp2
         // adding the result to the array
         static void Result(double result)
         {
-            resultmas[si++] = result;
             //si = si + 1;
+            resultmas[si++] = result;
             CheckForFilling();
 
         }
@@ -238,16 +238,13 @@ namespace ConsoleApp2
                     //percentage of the number
                     case Operation.percentage:
                         {
-                            CustomWriteLine($"You CHOSE ({Operation.percentage})\nprocent");
-
-                            Console.WriteLine("Enter number");
-                            number.Item1 = Check();
-
-                            Console.WriteLine("enter any procent");
-                            number.Item2 = Check();
-
                             do
                             {
+                                CustomWriteLine($"You CHOSE ({Operation.percentage})\nprocent\nEnter number");
+                                number.Item1 = Check();
+                                Console.WriteLine("enter any procent");
+                                number.Item2 = Check();
+
                                 Percentage(number.Item1, number.Item2);
                                 Result(result);
                                 PrintResultInfo();
@@ -259,13 +256,12 @@ namespace ConsoleApp2
                     //root of number
                     case Operation.root:
                         {
-                            Console.ResetColor();
-                            Console.WriteLine($"You CHOSE ({Operation.root})\n√");
-                            Console.WriteLine("Enter number ");
-                            number.Item1 = Check();
-
                             do
                             {
+                                Console.ResetColor();
+                                Console.WriteLine($"You CHOSE ({Operation.root})\n√\nEnter number");
+                                number.Item1 = Check();
+
                                 Root(number.Item1);
                                 Result(result);
                                 PrintResultInfo();
