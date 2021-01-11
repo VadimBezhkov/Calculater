@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace ConsoleApp2
 {
@@ -15,6 +17,7 @@ namespace ConsoleApp2
         percentage,
         root,
         result,
+        appconfig,
         exit
     }
     class Program
@@ -75,7 +78,8 @@ namespace ConsoleApp2
             Console.WriteLine("% - enter key 5");
             Console.WriteLine("√ - enter key 6");
             Console.WriteLine("5 results - enter key 7");
-            Console.WriteLine("exit to program - enter key 8");
+            Console.WriteLine("print App.config - enter key 8");
+            Console.WriteLine("exit to program - enter key 9");
             Console.Write("enter key:");
         }
         //displaying the last five results
@@ -295,6 +299,20 @@ namespace ConsoleApp2
                             } while (exit != "n");
                         }
 
+                        break;
+                    case Operation.appconfig:
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            NameValueCollection sAll;
+                            sAll = ConfigurationManager.AppSettings;
+
+                            foreach (string s in sAll.AllKeys)
+                            Console.WriteLine("Key: " + s + " Value: " + sAll.Get(s));
+                            Console.WriteLine(new string('-', 52));
+                            Console.WriteLine("press eny key");
+                            Console.ReadLine();
+                        }
+                        Console.ResetColor();
                         break;
                     //if no menu button is selected
                     default:
