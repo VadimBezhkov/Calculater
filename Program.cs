@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Collections.Specialized;
+using ConsoleApp2.Util;
+using Autofac;
 
 namespace ConsoleApp2
 {
@@ -22,51 +24,15 @@ namespace ConsoleApp2
     }
     class Program
     {
+        public static (double, double) number;
+        public static double result;
         static int si = 0;
-        static (double, double) number;
-        static double result;
         static double[] resultmas = new double[5];
         static string info = "Do you want to repeat enter? yes \n" +
             "to exit press any button and press enter";
-        //number input validation method
-        static double Check()
-        {
-            double number;
-            while (true)
-            {
-                var input = Console.ReadLine();
-                var condition = double.TryParse(input, out number);
-                if (condition)
-
-                {
-                    return number;
-                }
-                else
-                {
-                    Console.WriteLine("Error enter number");
-                }
-
-            }
-        }
-        // adding the result to the array
-        static void Result(double result)
-        {
-            //si = si + 1;
-            resultmas[si++] = result;
-            CheckForFilling();
-
-        }
-        //if more than five results
-        static void CheckForFilling()
-        {
-            if (si > 4)
-            {
-                si = 0;
-            }
-        }
 
         // action menu
-        static void ActionMenu()
+        public static void ActionMenu()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -82,8 +48,47 @@ namespace ConsoleApp2
             Console.WriteLine("exit to program - enter key 9");
             Console.Write("enter key:");
         }
+
+        //number input validation method
+        public static double Check()
+        {
+            double number;
+            while (true)
+            {
+                var input = Console.ReadLine();
+                var condition = double.TryParse(input, out number);
+                if (condition)
+
+                {
+                    return number;
+                }
+                else
+                {
+                    Console.WriteLine("Error enter number");
+                }
+            }
+        }
+
+        // adding the result to the array
+        public static void Result(double result)
+        {
+            //si = si + 1;
+            resultmas[si++] = result;
+            CheckForFilling();
+
+        }
+
+        //if more than five results
+        private static void CheckForFilling()
+        {
+            if (si > 4)
+            {
+                si = 0;
+            }
+        }
+
         //displaying the last five results
-        static void PrintResult()
+        public static void PrintResult()
         {
             foreach (var item in resultmas)
             {
@@ -91,102 +96,51 @@ namespace ConsoleApp2
             }
         }
         //input numbers
-        static void Enternumbers()
+        public static void Enternumbers()
         {
             Console.WriteLine("Enter number A");
-            number.Item1 = Check();
+            number.Item1 = Program.Check();
 
             Console.WriteLine("Enter number B");
-            number.Item2 = Check();
+            number.Item2 = Program.Check();
         }
+
         //user result output
-        static void PrintResultInfo()
+        public static void PrintResultInfo()
         {
             Console.WriteLine($"result: {result}");
+            Console.WriteLine(typeof(IMember));
             Console.WriteLine(info);
         }
-        //add operation
-        static double Add(double number1, double number2)
-        {
-            result = number1 + number2;
-            return result;
-        }
-        //substract operation
-        static double Subtract(double number1, double number2)
-        {
-            result = number1 - number2;
-            return result;
-        }
-        //multiply operation
-        static double Multiply(double number1, double number2)
-        {
-            result = number1 * number2;
-            return result;
-        }
-        //devide operation
-        static double Devide(double number1, double number2)
-        {
-            result = number1 / number2;
-            return result;
-        }
-        //percentage operation
-        static double Percentage(double number1, double number2)
-        {
-            result = (number1 * number2) / 100;
-            return result;
-        }
-        //root operation
-        static double Root(double number1)
-        {
-            result = Math.Sqrt(number1);
-            return result;
-        }
-        //text output operation
-        static void CustomWriteLine(string text)
+        public static void CustomWriteLine(string text)
         {
             Console.Clear();
             Console.ResetColor();
             Console.WriteLine(text);
         }
+
         static void Main(string[] args)
         {
+            var container = AutofacConfig.ConfigureContainer();
+            ILifetimeScope scope = container.BeginLifetimeScope();
+            IMember members = scope.Resolve<IMember>();
+
             while (true)
             {
                 ActionMenu();
                 Operation op;
                 Enum.TryParse(Console.ReadLine(), out op);
+
                 // choose action
                 switch (op)
                 {
-                    //addition operation
-                    //Console.ResetColor();
-                    //Console.WriteLine($"You CHOSE ({Operation.add})");
-                    //Console.WriteLine("addition operation");
-
-                    //Enternumbers();
-                    //Add(number.Item1,number.Item2);
-                    //Result(result);
-                    //PrintResultInfo();
-
-                    //String repeat = Console.ReadLine();
-
-                    //while (true)
-                    //{
-                    //    if (repeat == "yes")
-                    //    {
-                    //        CheckForFilling();
-                    //        goto case Operation.add;
-                    //    }
-
-                    //    break;
-                    //}
                     case Operation.add:
                         {
                             do
                             {
                                 CustomWriteLine($"You CHOSE ({Operation.add})\naddition operation");
                                 Enternumbers();
-                                Add(number.Item1, number.Item2);
+                                members.Add(number.Item1, number.Item2);
                                 Result(result);
                                 PrintResultInfo();
 
@@ -201,7 +155,7 @@ namespace ConsoleApp2
                             {
                                 CustomWriteLine($"You CHOSE ({Operation.subtract})\nsubtracting numbers");
                                 Enternumbers();
-                                Subtract(number.Item1, number.Item2);
+                                members.Subtract(number.Item1, number.Item2);
                                 Result(result);
                                 PrintResultInfo();
                             }
@@ -216,7 +170,7 @@ namespace ConsoleApp2
                             {
                                 CustomWriteLine($"You CHOSE ({Operation.multiply})\nmultiplication of numbers");
                                 Enternumbers();
-                                Multiply(number.Item1, number.Item2);
+                                members.Multiply(number.Item1, number.Item2);
                                 Result(result);
                                 PrintResultInfo();
                             }
@@ -231,7 +185,7 @@ namespace ConsoleApp2
                             {
                                 CustomWriteLine($"You CHOSE ({Operation.devide})\nquotient numbers");
                                 Enternumbers();
-                                Devide(number.Item1, number.Item2);
+                                members.Devide(number.Item1, number.Item2);
                                 Result(result);
                                 PrintResultInfo();
                             }
@@ -249,7 +203,7 @@ namespace ConsoleApp2
                                 Console.WriteLine("enter any procent");
                                 number.Item2 = Check();
 
-                                Percentage(number.Item1, number.Item2);
+                                members.Percentage(number.Item1, number.Item2);
                                 Result(result);
                                 PrintResultInfo();
                             }
@@ -266,7 +220,7 @@ namespace ConsoleApp2
                                 Console.WriteLine($"You CHOSE ({Operation.root})\n√\nEnter number");
                                 number.Item1 = Check();
 
-                                Root(number.Item1);
+                                members.Root(number.Item1);
                                 Result(result);
                                 PrintResultInfo();
                             }
@@ -313,6 +267,7 @@ namespace ConsoleApp2
                             Console.ReadLine();
                         }
                         Console.ResetColor();
+
                         break;
                     //if no menu button is selected
                     default:
